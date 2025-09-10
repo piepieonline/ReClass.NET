@@ -16,17 +16,20 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
 
-      - name: Build solution
-        run: msbuild ReClass.NET.sln /p:Configuration=Release /p:TargetFrameworkVersion=v4.7.2
+      - name: Build solution x86
+        run: msbuild ReClass.NET.sln /p:Configuration=Release /p:Platform=x86 /p:TargetFrameworkVersion=v4.7.2
+
+      - name: Build solution x64
+        run: msbuild ReClass.NET.sln /p:Configuration=Release /p:Platform=x64 /p:TargetFrameworkVersion=v4.7.2
 
       - name: Debug list output files
         run: |
           Write-Host "Files in Release folder:"
-          Get-ChildItem -Path ReClass.NET\bin\Release -Recurse
+          Get-ChildItem -Path bin\Release -Recurse
 
       - name: Publish artifact
         uses: actions/upload-artifact@v4
         with:
           name: ReClass.NET
           path: |
-            ReClass.NET/bin/Release/*
+            bin/Release/*
