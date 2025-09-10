@@ -1,7 +1,16 @@
 # ReClass.NET
 This is a port of ReClass to the .NET platform with lots of additional features.
 
-![](https://abload.de/img/main4hsbj.jpg)
+## Changes from base
+Merged the following pull requests:
+- #228: Github action to build latest master push (Completely rewritten now)
+- #262: Various Quality of Life features
+- #263: Adds Undo/Redo to ReClass.NET
+- #270: Implement more sane caret behavior
+- #271: Allow loading of uncompressed rcnet file to allow version control tools to work nicely w/ ReClass.NET files
+
+Added the following features:
+- Added reclassex project file importing
 
 ## Features
 - Support for x86 / x64
