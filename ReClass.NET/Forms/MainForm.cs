@@ -313,8 +313,9 @@ namespace ReClassNET.Forms
 
 			using var sfd = new SaveFileDialog
 			{
-				DefaultExt = ReClassNetFile.FileExtension,
-				Filter = $"{ReClassNetFile.FormatName} (*{ReClassNetFile.FileExtension})|*{ReClassNetFile.FileExtension}"
+				DefaultExt = ReClassNetFile.DefaultFileExtension,
+				Filter = $"{ReClassNetFile.FormatName} (*{ReClassNetFile.DefaultFileExtension})|*{ReClassNetFile.DefaultFileExtension}"
+						+ $"|{ReClassNetFile.AlternateFormatName} (*{ReClassNetFile.AlternateFileExtension})|*{ReClassNetFile.AlternateFileExtension}"
 			};
 
 			if (sfd.ShowDialog() == DialogResult.OK)
@@ -762,7 +763,8 @@ namespace ReClassNET.Forms
 				{
 					switch (Path.GetExtension(files.First()))
 					{
-						case ReClassNetFile.FileExtension:
+						case ReClassNetFile.DefaultFileExtension:
+						case ReClassNetFile.AlternateFileExtension:
 						case ReClassQtFile.FileExtension:
 						case ReClassFile.FileExtension:
 							e.Effect = DragDropEffects.Copy;
