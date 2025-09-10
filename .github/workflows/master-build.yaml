@@ -13,16 +13,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 6.0.x
-
-      - name: Restore NuGet packages
-        run: dotnet restore ReClass.NET.sln
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
 
       - name: Build solution
-        run: dotnet build ReClass.NET.sln --configuration Release --no-restore
+        run: msbuild ReClass.NET.sln /p:Configuration=Release /p:TargetFrameworkVersion=v4.7.2
+
+      - name: Debug list output files
+        run: |
+          Write-Host "Files in Release folder:"
+          Get-ChildItem -Path ReClass.NET\bin\Release -Recurse
 
       - name: Publish artifact
         uses: actions/upload-artifact@v4
