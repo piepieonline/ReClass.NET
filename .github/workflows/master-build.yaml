@@ -25,7 +25,7 @@ jobs:
         run: dotnet build ReClass.NET.sln --configuration Release --no-restore
 
       - name: Publish artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ReClass.NET
           path: |
