@@ -37,7 +37,8 @@ namespace ReClassNET.DataExchange.ReClass
 
 			if (document.Root.FirstNode is XComment versionComment)
 			{
-				switch (versionComment.Value.Substring(0, 12).ToLower())
+				string version = versionComment.Value.Length >= 12 ? versionComment.Value.Substring(0, 12) : versionComment.Value;
+				switch (version.ToLower())
 				{
 					case "reclass 2011":
 					case "reclass 2013":
@@ -45,6 +46,7 @@ namespace ReClassNET.DataExchange.ReClass
 						break;
 					case "reclass 2015":
 					case "reclass 2016":
+					case "reclassex":
 						typeMap = typeMap2016;
 						break;
 					default:
