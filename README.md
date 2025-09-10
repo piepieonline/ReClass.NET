@@ -71,6 +71,9 @@ If you want to develop your own plugin just learn from the code of the [Sample P
 Just download the [latest version](https://github.com/ReClassNET/ReClass.NET/releases) and start the x86 / x64 version or let the launcher decide.
 
 ## Tips
+- Command line parameters are supported.
+  - Pass a project filename to open it
+  - `-attachto <process name>` to attach to a process directly.
 - Lots of elements have a context menu. Just right-click it and see what you can do there.
 - The node window can be controlled with the keyboard too. Arrow keys can select other keys, combined with the shift key the nodes get selected. The menu key opens the context menu which itself can be controlled with the keyboard.
 - The memory address field of a class can contain a real formula not just a fixed address.  
