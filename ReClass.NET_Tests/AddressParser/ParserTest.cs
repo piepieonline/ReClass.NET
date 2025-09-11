@@ -1,10 +1,17 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using NFluent;
 using ReClassNET.AddressParser;
 using Xunit;
+using static ReClassNET.AddressParser.DynamicCompiler;
 
 namespace ReClass.NET_Tests.AddressParser
 {
+	class TestClassList : IProjectContext
+	{
+		public IReadOnlyList<ReClassNET.Nodes.ClassNode> Classes { get; } = new List<ReClassNET.Nodes.ClassNode>{};
+	}
+
 	public class ParserTest
 	{
 		[Theory]
@@ -17,6 +24,8 @@ namespace ReClass.NET_Tests.AddressParser
 		[InlineData(")")]
 		[InlineData("[")]
 		[InlineData("]")]
+		[InlineData("{")]
+		[InlineData("}")]
 		[InlineData("1-")]
 		[InlineData("1(")]
 		[InlineData("1)")]
@@ -26,6 +35,8 @@ namespace ReClass.NET_Tests.AddressParser
 		[InlineData(")1")]
 		[InlineData("[1")]
 		[InlineData("]1")]
+		[InlineData("{1")]
+		[InlineData("}1")]
 		[InlineData("1+(")]
 		[InlineData("1+)")]
 		[InlineData("1 + ()")]
@@ -44,22 +55,24 @@ namespace ReClass.NET_Tests.AddressParser
 		}
 
 		[Theory]
-		[InlineData("1", typeof(ConstantExpression))]
-		[InlineData("1 + 2", typeof(AddExpression))]
+		[InlineData("1", typeof(ConstantExpression))] // Address
+		[InlineData("1 + 2", typeof(AddExpression))] // Calculation for address
 		[InlineData("1 - 2", typeof(SubtractExpression))]
 		[InlineData("1 * 2", typeof(MultiplyExpression))]
 		[InlineData("1 / 2", typeof(DivideExpression))]
 		[InlineData("1 + 2 * 3", typeof(AddExpression))]
-		[InlineData("(1 + 2) * 3", typeof(MultiplyExpression))]
+		[InlineData("(1 + 2) * 3", typeof(MultiplyExpression))] // Calculation for address with parenthesis
 		[InlineData("1 + (2 * 3)", typeof(AddExpression))]
-		[InlineData("(1 + (2 * 3))", typeof(AddExpression))]
-		[InlineData("[1]", typeof(ReadMemoryExpression))]
+		[InlineData("(1 + (2 * 3))", typeof(AddExpression))] 
+		[InlineData("[1]", typeof(ReadMemoryExpression))] // Read memory at address
 		[InlineData("[1,4]", typeof(ReadMemoryExpression))]
-		[InlineData("[1,8]", typeof(ReadMemoryExpression))]
-		[InlineData("<test>", typeof(ModuleExpression))]
-		[InlineData("[<test>]", typeof(ReadMemoryExpression))]
+		[InlineData("[1,8]", typeof(ReadMemoryExpression))] 
+		[InlineData("<test.exe>", typeof(ModuleExpression))] // Module
+		[InlineData("[<test.exe>]", typeof(ReadMemoryExpression))] // Read memory at address of module
+		[InlineData("{ClassName}", typeof(TypeExpression))] // Address of another class
 		public void ValidExpressionTests(string expression, Type type)
 		{
+			DynamicCompiler.projectContext = new TestClassList();
 			Check.That(Parser.Parse(expression)).IsInstanceOfType(type);
 		}
 
