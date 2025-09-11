@@ -1,9 +1,12 @@
 using System;
 using System.Diagnostics.Contracts;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using ReClassNET.Extensions;
+using ReClassNET.Forms;
 using ReClassNET.Memory;
+using ReClassNET.Nodes;
 
 namespace ReClassNET.AddressParser
 {
@@ -97,6 +100,17 @@ namespace ReClassNET.AddressParser
 								Expression.MakeMemberAccess(moduleVariable, typeof(Memory.Module).GetProperty(nameof(Memory.Module.Start))!)
 							)
 						);
+					}
+				case TypeExpression typeExpression:
+					{
+						var classNode = MainForm.CurrentProject.Classes.Where(classNode => classNode.Name == typeExpression.Name).FirstOrDefault();
+						var classNameConstant = Expression.Constant(classNode);
+						var resolveFn = typeof(ClassUtil).GetRuntimeMethod(
+							nameof(ClassUtil.ResolveClassAddress),
+							new[] { typeof(IProcessReader), typeof(ClassNode) }
+						);
+
+						return Expression.Call(null, resolveFn, processParameter, classNameConstant);
 					}
 				case ReadMemoryExpression readMemoryExpression:
 					{

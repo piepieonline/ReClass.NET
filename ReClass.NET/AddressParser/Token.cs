@@ -1,4 +1,4 @@
-﻿namespace ReClassNET.AddressParser
+namespace ReClassNET.AddressParser
 {
 	public enum Token
 	{
@@ -13,6 +13,7 @@
 		CloseBrackets,
 		Comma,
 		Number,
-		Identifier
+		Identifier,
+		TypeIdentifier
 	}
 }

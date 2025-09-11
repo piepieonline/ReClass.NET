@@ -1,4 +1,4 @@
-﻿namespace ReClassNET.AddressParser
+namespace ReClassNET.AddressParser
 {
 	public interface IExpression
 	{
@@ -92,6 +92,15 @@
 		public string Name { get; }
 
 		public ModuleExpression(string name)
+		{
+			Name = name;
+		}
+	}
+
+	public class TypeExpression : IExpression
+	{
+		public string Name { get; }
+		public TypeExpression(string name)
 		{
 			Name = name;
 		}

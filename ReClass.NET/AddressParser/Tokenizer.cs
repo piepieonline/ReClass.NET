@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.Contracts;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -157,32 +157,45 @@ namespace ReClassNET.AddressParser
 
 		private bool TryReadIdentifierToken()
 		{
+			char endChar = '\0';
+
 			if (currentCharacter == '<')
+			{
+				Token = Token.Identifier;
+				endChar = '>';
+			}
+			else if (currentCharacter == '{')
+			{
+				Token = Token.TypeIdentifier;
+				endChar = '}';
+			}
+
+			if(endChar != '\0')
 			{
 				ReadNextCharacter();
 
 				var sb = new StringBuilder();
 
-				while (currentCharacter != '\0' && currentCharacter != '>')
+				while (currentCharacter != '\0' && currentCharacter != endChar)
 				{
 					sb.Append(currentCharacter);
 
 					ReadNextCharacter();
 				}
 
-				if (currentCharacter != '>')
+				if (currentCharacter != endChar)
 				{
-					throw new ParseException("Invalid identifier, missing '>'.");
+					throw new ParseException("Invalid identifier, missing '" + endChar + "'.");
 				}
 
 				ReadNextCharacter();
 
 				Identifier = sb.ToString();
-				Token = Token.Identifier;
 
 				return true;
 			}
 
+			Token = Token.None;
 			return false;
 		}
 	}

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using ReClassNET.AddressParser;
+using ReClassNET.Memory;
 using ReClassNET.Util;
 
 namespace ReClassNET.Nodes
@@ -38,6 +41,21 @@ namespace ReClassNET.Nodes
 			}
 
 			return graph.ContainsCycle();
+		}
+
+		/// <summary>
+		/// Resolves the address of a class node by evaluating its address formula.
+		/// </summary>
+		/// <param name="reader"></param>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public static IntPtr ResolveClassAddress(IProcessReader reader, ClassNode node)
+		{
+			if (string.IsNullOrEmpty(node.AddressFormula))
+				return IntPtr.Zero;
+
+			var expr = Parser.Parse(node.AddressFormula);
+			return new DynamicCompiler().Execute(expr, reader);
 		}
 	}
 }

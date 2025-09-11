@@ -11,6 +11,7 @@ Merged the following pull requests:
 
 Added the following features:
 - Added reclassex project file importing
+- Added **{ClassName}** support to the address field
 
 ## Features
 - Support for x86 / x64
@@ -78,8 +79,10 @@ Just download the [latest version](https://github.com/ReClassNET/ReClass.NET/rel
 - The node window can be controlled with the keyboard too. Arrow keys can select other keys, combined with the shift key the nodes get selected. The menu key opens the context menu which itself can be controlled with the keyboard.
 - The memory address field of a class can contain a real formula not just a fixed address.  
   
-  **\<Program.exe> + 0x123** will use the base address of Program.exe and add 0x123 to it.  
-  **[0x4012ABDE]** will read the integer (4 byte on x86 / 8 byte on x64) from the address 0x4012ABDE and use this value as class address.  
+  **\<Program.exe> + 0x123** will use the base address of Program.exe and add 0x123 to it.
+  **{ClassName}** will search for a class with this name in your project and resolve it's address.
+  **[0x4012ABDE]** will read the integer (4 byte on x86 / 8 byte on x64) from the address 0x4012ABDE and use this value as class address.
+  **[{ClassName} + 0x08]** will resolve the address of the ClassName in your project, add 0x08 and then read the value from this address (Useful to follow pointers from global objects)
   **[\<Program.exe> + 0xDE] - AB** will use the base address of Program.exe, add 0xDE to it, read the value from this address and finally sub 0xAB from it.  
   **[\<Program.exe> + offset + [\<Program.exe> + offset2]]** Nested operations are supported too.  
   
