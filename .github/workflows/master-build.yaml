@@ -1,9 +1,9 @@
-name: Build ReClass.NET Master
+name: Build ReClass.NET
 
 on:
   push:
     branches:
-      - master
+      - '**'
 
 jobs:
   build:

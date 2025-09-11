@@ -1,7 +1,10 @@
 # ReClass.NET
 This is a port of ReClass to the .NET platform with lots of additional features.
 
-## Changes from base
+![](docs/readme_image_1_overview.jpg)
+
+## Changes from upstream
+
 Merged the following pull requests:
 - #228: Github action to build latest master push (Completely rewritten now)
 - #262: Various Quality of Life features
@@ -11,7 +14,11 @@ Merged the following pull requests:
 
 Added the following features:
 - Added reclassex project file importing
-- Added **{ClassName}** support to the address field
+- Added **{ClassName}** support to the address field (Super ugly implmentation, but I don't want to refactor that much)
+
+The tips section has been expanded with more useful information.
+
+Builds can be download as Action artifacts from [here (Master branch)](https://github.com/piepieonline/ReClass.NET/actions?query=branch%3Amaster).
 
 ## Features
 - Support for x86 / x64
@@ -22,7 +29,7 @@ Added the following features:
   - Int 8 / 16 / 32 / 64
   - UInt 8 / 16 / 32 / 64
   - Bool
-  - Bits ![](https://abload.de/img/bitsnhlql.jpg)
+  - Bits ![](docs/readme_image_2_bits.jpg)
   - Enumerations
   - Float / Double
   - Vector 2 / 3 / 4
@@ -113,27 +120,27 @@ RUN apt-get update \
 
 ## Screenshots
 Process Selection  
-![](https://abload.de/img/processgya2k.jpg)
+![](docs/readme_image_3_process.jpg)
 
 Memory Viewer  
-![](https://abload.de/img/memoryviewerb4y1s.jpg)
+![](docs/readme_image_4_memory_viewer.jpg)
 
 Memory Scanner  
-![](https://abload.de/img/scannerytub1.jpg)
+![](docs/readme_image_5_memory_scanner.jpg)
 
 Pointer Preview  
-![](https://abload.de/img/memorypreview2gsfp.jpg)
+![](docs/readme_image_6_pointer_preview.jpg)
 
 Code Generator  
-![](https://abload.de/img/codegeneratorqdat2.jpg)
-![](https://abload.de/img/codegenerator24qzce.jpg)
+![](docs/readme_image_7_codegen_1.jpg)  
+![](docs/readme_image_8_codegen_2.jpg)
 
 Plugins  
-![](https://abload.de/img/plugin1mda4r.jpg)
-![](https://abload.de/img/plugin25dxk1.jpg)
+![](docs/readme_image_9_plugins.jpg)  
+![](docs/readme_image_10_plugins_2.jpg)
 
 Settings  
-![](https://abload.de/img/settings8sz4b.jpg)
+![](docs/readme_image_11_settings.jpg)
 
 ## Authors / Special Thanks
 - [KN4CK3R](https://github.com/KN4CK3R)
