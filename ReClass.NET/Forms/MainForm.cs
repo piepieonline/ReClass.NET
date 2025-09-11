@@ -28,11 +28,13 @@ namespace ReClassNET.Forms
 {
 	public partial class MainForm : IconForm
 	{
+		private static MainForm instance;
+
 		private readonly PluginManager pluginManager;
 		private readonly IconProvider iconProvider = new IconProvider();
 
 		private ReClassNetProject currentProject;
-		public ReClassNetProject CurrentProject => currentProject;
+		public static ReClassNetProject CurrentProject => instance.currentProject;
 
 		private ClassNode currentClassNode;
 
@@ -72,8 +74,12 @@ namespace ReClassNET.Forms
 
 		public MainForm()
 		{
+			Contract.Requires(instance == null);
+			Contract.Ensures(instance != null);
 			Contract.Ensures(pluginManager != null);
 			Contract.Ensures(currentProject != null);
+
+			instance = this;
 
 			InitializeComponent();
 			UpdateWindowTitle();
@@ -235,6 +241,11 @@ namespace ReClassNET.Forms
 			LinkedWindowFeatures.CreateDefaultClass();
 		}
 
+		private void importClassFromHeaderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+
+		}
+
 		private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			try
@@ -367,7 +378,7 @@ namespace ReClassNET.Forms
 
 		private void loadSymbolToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			using var ofd = new OpenFileDialog
+				using var ofd = new OpenFileDialog
 			{
 				Filter = "Program Debug Database (*.pdb)|*.pdb|All Files (*.*)|*.*"
 			};
